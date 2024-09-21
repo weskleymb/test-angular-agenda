@@ -1,0 +1,22 @@
+<ul class="space-y-4">
+    <li *ngFor="let contact of contacts" class="border p-4 rounded shadow-md">
+      <h2 class="text-xl font-bold mb-2">{{ contact.name }}</h2>
+      <p class="mb-2"><strong>E-mail:</strong> {{ contact.email }}</p>
+      <ul class="space-y-1">
+        <li *ngFor="let phone of contact.phones" class="flex items-center space-x-2">
+          <fa-icon [icon]="phone.type === 'móvel' ? ['fas', 'mobile-alt'] : ['fas', 'phone']" class="text-gray-500"></fa-icon>
+          <span>{{ phone.type }}: {{ formatPhoneNumber(phone) }}</span>
+        </li>
+      </ul>
+  
+      <div class="mt-4 space-x-2">
+        <button (click)="onEditContact(contact)" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded inline-flex items-center space-x-2">
+          <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon> <span>Editar</span>
+        </button>
+        <button (click)="onDeleteContact(contact.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded inline-flex items-center space-x-2">
+          <fa-icon [icon]="['fas', 'trash']"></fa-icon> <span>Deletar</span>
+        </button>
+      </div>
+    </li>
+  </ul>
+  

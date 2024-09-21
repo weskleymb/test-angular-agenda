@@ -1,0 +1,78 @@
+<form (submit)="onSubmit()" class="space-y-4 mb-8">
+  <!-- Campo Nome com Ícone à Esquerda -->
+  <div class="space-y-1">
+    <label for="name" class="block mb-2 font-semibold">Nome:</label>
+    <div class="relative">
+      <fa-icon [icon]="['fas', 'user']" class="absolute left-2 top-2 text-gray-500"></fa-icon>
+      <input
+        type="text"
+        [(ngModel)]="contact.name"
+        name="name"
+        required
+        class="border border-gray-300 p-2 pl-10 rounded w-full"
+      />
+    </div>
+  </div>
+
+  <!-- Campo E-mail com Ícone à Esquerda -->
+  <div class="space-y-1">
+    <label for="email" class="block mb-2 font-semibold">E-mail:</label>
+    <div class="relative">
+      <fa-icon [icon]="['fas', 'envelope']" class="absolute left-2 top-2 text-gray-500"></fa-icon>
+      <input
+        type="email"
+        [(ngModel)]="contact.email"
+        name="email"
+        required
+        class="border border-gray-300 p-2 pl-10 rounded w-full"
+      />
+    </div>
+  </div>
+
+  <!-- Telefones -->
+  <div *ngFor="let phone of contact.phones; let i = index" class="space-y-2">
+    <label for="phone" class="block font-semibold">Telefone {{ i + 1 }}:</label>
+    <div class="relative">
+      <div class="flex space-x-2 items-center">
+        <select [(ngModel)]="phone.type" name="phoneType-{{ i }}" class="border border-gray-300 p-2 rounded w-1/4">
+          <option value="móvel">Móvel</option>
+          <option value="fixo">Fixo</option>
+        </select>
+
+        <div class="relative w-full">
+          <fa-icon
+            [icon]="phone.type === 'móvel' ? ['fas', 'mobile-alt'] : ['fas', 'phone']"
+            class="absolute left-2 top-2 text-gray-500"
+          ></fa-icon>
+          <input
+            type="text"
+            [(ngModel)]="phone.number"
+            name="phoneNumber-{{ i }}"
+            required
+            class="border border-gray-300 p-2 pl-10 rounded w-full"
+            [mask]="phone.type === 'móvel' ? '(00) 00000-0000' : '(00) 0000-0000'"
+          />
+        </div>
+
+        <!-- Botão de Remover Telefone com Estilo Circular -->
+        <button
+          type="button"
+          (click)="onRemovePhone(i)"
+          class="bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded-full flex items-center justify-center w-10 h-10"
+        >
+          <fa-icon [icon]="['fas', 'times']"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão de adicionar telefone -->
+  <button type="button" (click)="onAddPhone()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center space-x-2">
+    <fa-icon [icon]="['fas', 'plus']"></fa-icon> <span>Adicionar Telefone</span>
+  </button>
+
+  <!-- Botão de salvar -->
+  <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-4 inline-flex items-center space-x-2">
+    <fa-icon [icon]="['fas', 'check']"></fa-icon> <span>Salvar Contato</span>
+  </button>
+</form>

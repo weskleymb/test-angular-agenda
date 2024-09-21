@@ -1,0 +1,27 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mx-6 text-center">Agenda de Contatos</h1>
+
+  <!-- Flexbox para alinhar o formulário e a lista de contatos -->
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Coluna do Formulário -->
+    <div class="flex-1">
+      <!-- Formulário de Contatos -->
+      <app-contact-form
+        [contact]="editingContact || newContact"
+        (saveContact)="saveContact($event)"
+        (addPhone)="addPhone()"
+        (removePhone)="removePhone($event)"
+      ></app-contact-form>
+    </div>
+
+    <!-- Coluna da Lista de Contatos -->
+    <div class="flex-1 mt-8">
+      <!-- Lista de Contatos -->
+      <app-contact-list
+        [contacts]="contacts"
+        (editContact)="editContact($event)"
+        (deleteContact)="deleteContact($event)"
+      ></app-contact-list>
+    </div>
+  </div>
+</div>
