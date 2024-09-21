@@ -25,6 +25,9 @@ export class ContactFormComponent {
   }
 
   onSubmit() {
+    // Garantir que o nome seja salvo em maiúsculas e o e-mail em minúsculas
+    this.contact.name = this.contact.name.toUpperCase();
+    this.contact.email = this.contact.email.toLowerCase();
     this.saveContact.emit(this.contact);
   }
 
