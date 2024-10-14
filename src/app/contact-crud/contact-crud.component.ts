@@ -1,20 +1,25 @@
 import { Component } from '@angular/core';
-import { Contact } from '../contact.model';
 import { ContactService } from '../contact-service.service';
+import { Contact } from '../contact.model';
 import { ContactFormComponent } from './contact-form.component';
 import { ContactListComponent } from './contact-list.component';
-import { NgIf } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-contact-crud',
   standalone: true,
   templateUrl: './contact-crud.component.html',
-  imports: [ContactFormComponent, ContactListComponent, NgIf],
+  imports: [
+    MatGridListModule,
+    MatCardModule,
+    ContactFormComponent,
+    ContactListComponent
+  ]
 })
 export class ContactCrudComponent {
   contacts: Contact[];
   editingContact: Contact | null = null;
-
   newContact: Contact = { id: 0, name: '', email: '', phones: [{ type: 'móvel', number: '' }] };
 
   constructor(private contactService: ContactService) {
@@ -22,6 +27,9 @@ export class ContactCrudComponent {
   }
 
   saveContact(contact: Contact) {
+    contact.name = contact.name.toUpperCase();
+    contact.email = contact.email.toLowerCase();
+
     if (this.editingContact) {
       this.contactService.updateContact(contact);
       this.editingContact = null;
